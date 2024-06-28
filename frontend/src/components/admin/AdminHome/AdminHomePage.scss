@@ -1,0 +1,48 @@
+$secondwhite-color: #fefefe;
+$teal-color: teal;
+
+.home-div {
+  padding: 30px;
+  padding-left: 95px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  .welcome-message {
+    text-align: center;
+    margin-bottom: 20px;
+
+    h1 {
+      font-size: 24px;
+      color: $teal-color;
+      font-weight: bold;
+      font-size: 32px;
+      padding-top: 10px;
+    }
+
+    p {
+      font-size: 18px;
+      color: gray;
+    }
+  }
+}
+
+  // .btn-1 {
+  //   button {
+  //     width: 95px;
+  //     padding: 5px;
+  //     border-radius: 50px;
+  //     font-size: 15px;
+  //     font-family: sans-serif;
+  //     font-weight: 600;
+  //     border: none;
+  //     color: $darkblue-color;
+  //     border: 2px solid $darkblue-color;
+  //     background: transparent;
+  //     cursor: pointer;
+  //     &:hover {
+  //       color: rgb(159, 138, 219);
+  //     }
+  //   }
+  // }

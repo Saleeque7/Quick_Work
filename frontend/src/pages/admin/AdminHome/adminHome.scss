@@ -1,0 +1,19 @@
+// src/pages/admin/AdminHome/adminHome.scss
+
+$mainwhite-color: #f8f8f8;
+$secondwhite-color: #fefefe;
+$darkblue-color: #000080;
+
+* {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.main-component-div {
+  width: 100%;
+  height: 3000px;
+  background-color: $mainwhite-color;
+  position: relative;
+}
