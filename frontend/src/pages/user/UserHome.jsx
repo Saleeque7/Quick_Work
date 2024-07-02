@@ -18,60 +18,28 @@ import { useState, useEffect } from "react";
 import UserProfile from "../../components/user/UserProfile";
 import { useUserProfile } from "../../utils/context/ProfileContext";
 
-const JobsHeading = ({ activeHeading, setActiveHeading }) => (
-  <Flex
-    justifyContent="flex-start"
-    alignItems="start"
-    flexDirection={{ base: "column", md: "row" }}
-    bg="gray.100"
-    p={5}
-  >
-    {["Best Matches", "Most Recent", "Saved Jobs"].map((heading) => (
-      <Text
-        key={heading}
-        fontSize="xl"
-        fontWeight="bold"
-        mr={4}
-        mb={{ base: 4, md: 0 }}
-        color={activeHeading === heading ? "teal.500" : "gray.500"}
-        ml={5}
-        _hover={{ color: "teal.500", cursor: "pointer" }}
-        onClick={() => setActiveHeading(heading)}
-      >
-        {heading}
-      </Text>
-    ))}
-  </Flex>
-);
-
 export default function UserHome() {
-  const { userProfile , setUserProfile } = useUserProfile();
+  const { userProfile, setUserProfile } = useUserProfile();
   const user = useSelector((state) => state.persisted.user.user);
   const [activeHeading, setActiveHeading] = useState("Best Matches");
 
   useEffect(() => {
     if (user.isUserProfile) {
-      console.log("wttt");
       setUserProfile(true);
     }
   }, [user.isUserProfile]);
-
-  const handleProfileSubmit = () => {
-    // Handle profile submission logic
-  };
 
   return (
     <>
       <Box>
         <Navbar userInfo={user} />
-        {userProfile ? (
+        {userProfile && (
           <Box>
             <Flex
               justifyContent="space-between"
               alignItems="center"
               flexDirection={{ base: "column", md: "row" }}
               bg="gray.100"
-              p={5}
             >
               <Box
                 w={{ base: "100%", md: "75%" }}
@@ -97,8 +65,7 @@ export default function UserHome() {
                 w={{ base: "100%", md: "25%" }}
                 mb={{ base: 8, md: 0 }}
                 alignItems="center"
-                p={8}
-                borderRadius="md"
+                ml={12}
                 textAlign="center"
               >
                 <ProfileBar user={user} />
@@ -114,7 +81,7 @@ export default function UserHome() {
             >
               <Text
                 color="teal.500"
-                _hover={{ color: "green.500", cursor: "pointer" }}
+                _hover={{ color: "green", cursor: "pointer" }}
                 ml={12}
                 fontSize={"2xl"}
               >
@@ -122,14 +89,37 @@ export default function UserHome() {
               </Text>
             </Flex>
 
-            <JobsHeading activeHeading={activeHeading} setActiveHeading={setActiveHeading} />
+            <Flex
+              justifyContent="flex-start"
+              alignItems="start"
+              flexDirection={{ base: "column", md: "row" }}
+              bg="gray.100"
+              p={5}
+            >
+              {["Best Matches", "Most Recent", "Saved Jobs"].map((heading) => (
+                <Text
+                  key={heading}
+                  fontSize="xl"
+                  fontWeight="bold"
+                  mr={4}
+                  mb={{ base: 4, md: 0 }}
+                  color={activeHeading === heading ? "green" : "dark"}
+                  ml={5}
+                  _hover={{ color: "teal.700", cursor: "pointer" }}
+                  onClick={() => setActiveHeading(heading)}
+                  pl={8}
+                >
+                  {heading}
+                </Text>
+              ))}
+            </Flex>
 
             <Flex
               flexDirection={{ base: "column", md: "row" }}
               bg="gray.100"
               mt={-4}
             >
-              <Box ml={16} w={{ base: "100%", md: "75%" }}>
+              <Box ml={16} w={{ base: "100%", md: "80%" }}>
                 <Divider borderColor={"gray"} />
               </Box>
             </Flex>
@@ -140,15 +130,15 @@ export default function UserHome() {
               fontSize={"xs"}
               p={4}
             >
-              <Text ml={20}>
+              <Text ml={16}>
                 {activeHeading === "Best Matches"
                   ? `*Browse jobs that match your experience to a client's hiring preferences. Ordered by most relevant.`
-                  : `Browse the most recent jobs that match your skills and profile description to the skills clients are looking for.`}
+                  : `*Browse the most recent jobs that match your skills and profile description to the skills clients are looking for.`}
               </Text>
             </Flex>
 
             <Flex flexDirection={{ base: "column", md: "row" }} bg="gray.100">
-              <Box ml={16} w={{ base: "100%", md: "75%" }}>
+              <Box ml={16} w={{ base: "100%", md: "80%" }}>
                 <Divider borderColor={"gray"} />
               </Box>
             </Flex>
@@ -161,9 +151,10 @@ export default function UserHome() {
               <JobCards />
             </Flex>
           </Box>
-        ) : (
-          <UserProfile user={user} onProfile={handleProfileSubmit} />
         )}
+
+        {!userProfile && <UserProfile user={user} />}
+
         <Footer />
       </Box>
     </>

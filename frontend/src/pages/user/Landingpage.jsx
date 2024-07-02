@@ -18,6 +18,7 @@ import landingImage from "../../assets/111.jpg";
 import { ArrowForwardIcon, CheckIcon } from "@chakra-ui/icons";
 import { shakeKeyframes } from "../../components/uic/shakeAnimation";
 import Footer from "../../components/main/footer";
+import { Link } from "react-router-dom";
 export default function Landingpage() {
   return (
     <>
@@ -50,7 +51,8 @@ export default function Landingpage() {
               mt={4}
               rightIcon={<Icon as={MdArrowForward} />}
             >
-              Get Started
+              <Link to={"/login"}> Get Started</Link>
+             
             </Button>
           </Box>
 
@@ -186,8 +188,10 @@ export default function Landingpage() {
                 }}
               >
                 <Text textAlign="start" color="white" fontSize="xl">
+                  <Link to={"/login"} >
                   Post a job <br />
                   and hire a pro <ArrowForwardIcon color="white" mr="5" />
+                </Link>
                 </Text>
               </Box>
               <Box
@@ -202,8 +206,10 @@ export default function Landingpage() {
                 }}
               >
                 <Text textAlign="start" color="white" fontSize="xl">
+                  <Link to={'/login'}>
                   Find Great <br />
                   Work <ArrowForwardIcon color="white" mr="5" />
+                  </Link>
                 </Text>
               </Box>
               <Box
@@ -218,8 +224,10 @@ export default function Landingpage() {
                 }}
               >
                 <Text textAlign="start" color="white" fontSize="xl">
+                  <Link to={'/login'}>
                   Browse and <br />
                   Buy Projects <ArrowForwardIcon color="white" mr="5" />
+                  </Link>
                 </Text>
               </Box>
             </Flex>

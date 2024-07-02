@@ -1,54 +1,144 @@
-import React from 'react';
-import { Box, Flex, Text, Icon, Tooltip } from '@chakra-ui/react';
-import { FaRegSave } from 'react-icons/fa';
+import React, { useState, useEffect } from "react";
+import {
+  Box,
+  Flex,
+  Text,
+  IconButton,
+  Tooltip,
+  Skeleton,
+} from "@chakra-ui/react";
+import {
+  HiOutlineBookmark,
+  HiOutlineThumbDown,
+  HiLocationMarker,
+} from "react-icons/hi";
+import Rating from "./Rating";
 
-export default function JobCards() {
+const JobCards = () => {
+  const skills = ["mongodb", "sql", "mern", "mern", "mern"];
+  const userReviews = [2];
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <Box
       bg="white"
       boxShadow="md"
-      borderRadius="md"
-      p={4}
+      borderRadius="xl"
+      p={8}
       m={4}
       ml={12}
-      width={{ base: '90%', md: '80%' }}
+      width={{ base: "90%", md: "80%" }}
     >
-      {/* Top Left: Job Post Time */}
-      <Text fontSize="xs" color="gray.500" mb={2}>Posted: 1h ago</Text>
+     
+      {isLoading ? (
+        <Skeleton height="20px" mb="4" />
+      ) : (
+        <Text fontSize="xs" color="gray.500">
+          Posted: 1h ago
+        </Text>
+      )}
 
-      {/* Top Right: Save Icon */}
       <Flex justifyContent="flex-end" alignItems="center">
+        <Tooltip label="Not Interested">
+          <IconButton
+            icon={<HiOutlineThumbDown />}
+            color="teal.700"
+            fontSize="2xl"
+            cursor="pointer"
+            mr={4}
+            aria-label="Not Interested"
+            variant="ghost"
+          />
+        </Tooltip>
         <Tooltip label="Save Job">
-          <Icon as={FaRegSave} color="teal.500" cursor="pointer" />
+          <IconButton
+            icon={<HiOutlineBookmark />}
+            color="teal.700"
+            fontSize="2xl"
+            cursor="pointer"
+            mr={8}
+            aria-label="Save Job"
+            variant="ghost"
+          />
         </Tooltip>
       </Flex>
-
-      {/* Next Row: Date and Required Heading */}
-      <Flex justifyContent="space-between" alignItems="center" mt={2}>
-        <Text fontSize="lg" fontWeight="bold">Date: May 13, 2024</Text>
-        <Text fontSize="md" color="gray.600">Required</Text>
+      <Flex justifyContent="start" alignItems="center" mt={-3}>
+        {isLoading ? (
+          <Skeleton height="24px" width="50%" />
+        ) : (
+          <Text fontSize="lg" fontWeight="bold">
+            JobTItle
+          </Text>
+        )}
+      </Flex>
+      <Flex justifyContent="start" alignItems="center" mt={3} mb={8}>
+        {isLoading ? (
+          <Skeleton height="16px" width="20%" />
+        ) : (
+          <Text fontSize="xs" color="gray.500">
+            Price Type:546
+          </Text>
+        )}
       </Flex>
 
-      {/* Next Row: Estimated Completion Time */}
-      <Text fontSize="sm" color="gray.500" mt={2}>Estimated Completion Time: 3 days</Text>
+      {isLoading ? (
+        <Skeleton height="120px" />
+      ) : (
+        <Text fontSize="md" mt={4} mb={4}>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+          similique voluptate eum impedit explicabo, facere sed ipsa recusandae
+          quas molestias qui error odio sint dolorem minima perferendis quis
+          laborum saepe. Reprehenderit soluta dolore asperiores velit dolor
+          harum, dolores iusto excepturi fugit inventore omnis ad? Dolores
+          voluptatem nobis incidunt dolorum excepturi commodi, nihil qui
+          similique non placeat earum sit necessitatibus omnis. Eaque
+        </Text>
+      )}
 
-      {/* Next Row: Job Description */}
-      <Text fontSize="md" mt={4}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-        Duis viverra gravida arcu, non cursus nisi commodo ut.
-      </Text>
-
-      {/* Bottom Left: Company Name and Address */}
-      <Flex justifyContent="flex-start" alignItems="center" mt={4}>
-        <Text fontSize="md" fontWeight="bold">Company Name</Text>
-        <Text fontSize="sm" color="gray.500" ml={2}>Address, City, Country</Text>
+      <Flex justifyContent="flex-start" alignItems="center" mt={2} flexWrap="wrap">
+        {skills.map((skill, index) => (
+          <Box
+            key={index}
+            display="flex"
+            alignItems="center"
+            border="1px solid gray.400"
+            boxShadow="sm"
+            bg="gray.200"
+            borderRadius="md"
+            m={2}
+            px={4}
+            py={2}
+          >
+            {isLoading ? (
+              <Skeleton height="16px" width="40px" />
+            ) : (
+              skill
+            )}
+          </Box>
+        ))}
       </Flex>
 
-      {/* Bottom Right: Required Skills */}
-      <Flex justifyContent="flex-end" alignItems="center" mt={2}>
-        <Text fontSize="sm" color="teal.500">Required Skills:</Text>
-        <Text fontSize="sm" ml={2}>Skill 1, Skill 2, Skill 3</Text>
+      {!isLoading && <Rating reviews={userReviews} />}
+      <Flex justifyContent="start" alignItems="center" mt={3} >
+        {isLoading ? (
+          <Skeleton height="16px" width="20%" />
+        ) : (
+          <Text fontSize="xs" color="gray.500">
+            Proposals limit : 20
+          </Text>
+        )}
       </Flex>
     </Box>
   );
-}
+};
+
+export default JobCards;

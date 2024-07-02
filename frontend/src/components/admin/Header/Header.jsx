@@ -15,7 +15,6 @@ export const Header = () => {
 
   const adminLogoutHandler=async()=>{
     localStorage.removeItem('currentElement');
-
      dispatch(logoutAdmin())
     navigate('/admin/login');
   }

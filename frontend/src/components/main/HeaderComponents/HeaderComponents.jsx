@@ -17,14 +17,51 @@ const DesktopNav = ({ userInfo }) => {
   const linkHoverColor = useColorModeValue("gray.800", "white");
   const navigate = useNavigate();
 
-  const NAV_ITEMS = userInfo?.job_role === "freelancer"
-    ? [
+  const NAV_ITEMS =  [
         { label: "Find Work", href: "/userAuctions" },
         { label: "My Work", href: "/userSellers" },
         { label: "Message", href: "/userAuctioning" },
         { label: "Auction", href: "/userWatchlist" },
       ]
-    : [
+  
+    
+  return (
+    userProfile  && (
+    <Stack direction="row" spacing={4}>
+      {NAV_ITEMS.map((navItem) => (
+        <Box key={navItem.label}>
+          <Popover trigger="hover" placement="bottom-start">
+            <PopoverTrigger>
+              <Box
+                as="button"
+                p={2}
+                onClick={() => navigate(navItem.href)}
+                fontSize="sm"
+                fontWeight={500}
+                color={linkColor}
+                _hover={{
+                  textDecoration: "none",
+                  color: linkHoverColor,
+                }}
+              >
+                {navItem.label}
+              </Box>
+            </PopoverTrigger>
+          </Popover>
+        </Box>
+      ))}
+    </Stack>
+  )
+);
+};
+const DesktopNavClient = ({ userInfo }) => {
+  const { clientProfile}  = useUserProfile()
+ 
+  const linkColor = useColorModeValue("gray.600", "gray.200");
+  const linkHoverColor = useColorModeValue("gray.800", "white");
+  const navigate = useNavigate();
+
+  const NAV_ITEMS =  [
         { label: "Find Talent", href: "/userAuctions" },
         { label: "My Jobs", href: "/userSellers" },
         { label: "Message", href: "/userAuctioning" },
@@ -32,7 +69,7 @@ const DesktopNav = ({ userInfo }) => {
       ];
     
   return (
-    userProfile && (
+    clientProfile  && (
     <Stack direction="row" spacing={4}>
       {NAV_ITEMS.map((navItem) => (
         <Box key={navItem.label}>
@@ -135,4 +172,4 @@ const MobileNavItem = ({ label, href }) => {
   );
 };
 
-export { DesktopNav, MobileNav };
+export { DesktopNav, MobileNav ,DesktopNavClient};

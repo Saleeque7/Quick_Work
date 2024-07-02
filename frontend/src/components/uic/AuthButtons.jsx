@@ -166,6 +166,7 @@ export const AuthButtonGroup = ({ layout, userType }) => {
             );
             console.error("Error data:", error.response.data);
             setErrorMessage(error.response.data.message)
+            // window.history.replaceState({}, document.title, window.location.pathname);
           } else if (error.request) {
             console.error("No response received from server:", error.request);
             toast.error("Network error. Please try again later.", {
@@ -224,6 +225,8 @@ export const AuthButtonGroup = ({ layout, userType }) => {
       `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=user:email`
     );
   };
+
+  
   const CLIENT_ID_LOG = config.GIT_HUB_CLIENT_ID_LOG;
   const logInWithGithub = () => {
     window.location.assign(

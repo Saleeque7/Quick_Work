@@ -101,7 +101,7 @@ const ImageUploaderWithCrop = ({ user, onImageCropped, imageError }) => {
           onClick={() => document.getElementById("image-upload").click()}
           cursor="pointer"
         />
-        <IconButton
+  { !image &&     <IconButton
           icon={<FaCamera />}
           position="absolute"
           bottom={0}
@@ -113,7 +113,7 @@ const ImageUploaderWithCrop = ({ user, onImageCropped, imageError }) => {
           size="sm"
           isRound
           aria-label="Upload Image"
-        />
+        />}
         {croppedImage && (
           <IconButton
             icon={<FaCut />}

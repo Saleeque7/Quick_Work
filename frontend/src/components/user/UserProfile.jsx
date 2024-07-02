@@ -50,7 +50,7 @@ const steps = [
   { title: "Job experience", description: "Experience" },
 ];
 
-export default function UserProfile({ onProfile }) {
+export default function UserProfile() {
   const dispatch = useDispatch();
   const formatDate = (dateString) => {
     if (!dateString) return "";
@@ -471,12 +471,15 @@ export default function UserProfile({ onProfile }) {
   return (
     <>
       {isStart ? (
-        <Box>
+        <Box
+        bgGradient="linear(to-b, green.100, gray.100)"
+        >
           <Flex
             justifyContent="center"
             alignItems="center"
             flexDirection={{ base: "column", md: "row" }}
             p={5}
+
           >
             <Box
               w={{ base: "100%", md: "75%" }}
@@ -486,6 +489,9 @@ export default function UserProfile({ onProfile }) {
               mt={8}
               borderRadius="md"
               textAlign="center"
+             boxShadow="xl"
+             bg={"white"}
+
             >
               <Stepper index={activeStep}>
                 {steps.map((step, index) => (
@@ -723,7 +729,7 @@ export default function UserProfile({ onProfile }) {
                               mb={3}
                             >
                               {skill}
-                              {!user.skills && (
+                              
                                 <IconButton
                                   icon={<CloseIcon />}
                                   size="xs"
@@ -731,7 +737,7 @@ export default function UserProfile({ onProfile }) {
                                   ml={2}
                                   colorScheme="red"
                                 />
-                              )}
+                              
                             </Box>
                           ))}
                         </Flex>

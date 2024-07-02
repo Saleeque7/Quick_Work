@@ -13,7 +13,7 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import { DesktopNav,MobileNav } from "./HeaderComponents/HeaderComponents.jsx";
+import { DesktopNav,MobileNav,DesktopNavClient } from "./HeaderComponents/HeaderComponents.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
@@ -22,8 +22,11 @@ import {logout} from  "../../utils/Redux/userSlice.jsx";
 import { logoutClient } from "../../utils/Redux/recruiterSlice.jsx";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
+import { useUserProfile } from "../../utils/context/ProfileContext";
+
 
 const Navbar = ({userInfo}) => {
+  const { userProfile , setUserProfile } = useUserProfile();
 
   const [isHovered , setHovered] = useState(false)
   const { isOpen, onToggle } = useDisclosure();
@@ -34,6 +37,7 @@ const Navbar = ({userInfo}) => {
 
   const handleLogout = async () => {
     if (userInfo.job_role === "freelancer") {
+      setUserProfile(!userProfile)
       await dispatch(logout());
     } else if (userInfo.job_role === "client") {
       await dispatch(logoutClient());
@@ -106,9 +110,13 @@ const Navbar = ({userInfo}) => {
           <Logo />
         </Text>
         <Flex display={{ base: "none", md: "flex" }} ml={10} pb={0}>
-        { userInfo && <DesktopNav userInfo= {userInfo} />}
+        {userInfo?.job_role === "freelancer" && 
+         <DesktopNav userInfo= {userInfo} />
+}
+         {userInfo?.job_role === "client" &&<DesktopNavClient userInfo= {userInfo} />}
         </Flex>
         <Stack flex={{ base: 1, md: 1 }} justify="flex-end" direction="row">
+        {/*  */}
         {userInfo ? (
             <>
               <Button
