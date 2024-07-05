@@ -14,7 +14,8 @@ import {
 } from "react-icons/hi";
 import Rating from "./Rating";
 
-const JobCards = () => {
+
+const JobCards = ({jobs}) => {
   const skills = ["mongodb", "sql", "mern", "mern", "mern"];
   const userReviews = [2];
 
@@ -28,7 +29,44 @@ const JobCards = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  const timeAgo = (timestamp) => {
+    const date = new Date(timestamp);
+    const now = new Date();
+  
+
+    const diff = now.getTime() - date.getTime();
+  
+
+    const seconds = Math.floor(diff / 1000);
+  
+    if (seconds < 60) {
+      return `${seconds}s ago`;
+    } else if (seconds < 3600) {
+      const minutes = Math.floor(seconds / 60);
+      return `${minutes}m ago`;
+    } else if (seconds < 86400) {
+      const hours = Math.floor(seconds / 3600);
+      return `${hours}h ago`;
+    } else {
+
+      const today = now.setHours(0, 0, 0, 0);
+      const yesterday = new Date(today - 86400000); 
+    
+      if (date.getTime() >= today) {
+        return 'today';
+      } else if (date.getTime() >= yesterday.getTime()) {
+        return 'yesterday';
+      } else {
+
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
+        return date.toLocaleDateString(undefined, options);
+      }
+    }
+  };
+
   return (
+    <>
+    {jobs.map((job, index) => (
     <Box
       bg="white"
       boxShadow="md"
@@ -43,7 +81,7 @@ const JobCards = () => {
         <Skeleton height="20px" mb="4" />
       ) : (
         <Text fontSize="xs" color="gray.500">
-          Posted: 1h ago
+          Posted:{timeAgo(job.createdAt)}
         </Text>
       )}
 
@@ -75,8 +113,8 @@ const JobCards = () => {
         {isLoading ? (
           <Skeleton height="24px" width="50%" />
         ) : (
-          <Text fontSize="lg" fontWeight="bold">
-            JobTItle
+          <Text fontSize="xl" fontWeight="bold" color={"teal"}>
+            {job.jobRole}
           </Text>
         )}
       </Flex>
@@ -85,7 +123,7 @@ const JobCards = () => {
           <Skeleton height="16px" width="20%" />
         ) : (
           <Text fontSize="xs" color="gray.500">
-            Price Type:546
+           {job.projectTerm} - {job.budgetType}Price - ₹{job.budget}
           </Text>
         )}
       </Flex>
@@ -93,19 +131,13 @@ const JobCards = () => {
       {isLoading ? (
         <Skeleton height="120px" />
       ) : (
-        <Text fontSize="md" mt={4} mb={4}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
-          similique voluptate eum impedit explicabo, facere sed ipsa recusandae
-          quas molestias qui error odio sint dolorem minima perferendis quis
-          laborum saepe. Reprehenderit soluta dolore asperiores velit dolor
-          harum, dolores iusto excepturi fugit inventore omnis ad? Dolores
-          voluptatem nobis incidunt dolorum excepturi commodi, nihil qui
-          similique non placeat earum sit necessitatibus omnis. Eaque
+        <Text fontSize="md"  mb={4}>
+         {job.description}
         </Text>
       )}
 
       <Flex justifyContent="flex-start" alignItems="center" mt={2} flexWrap="wrap">
-        {skills.map((skill, index) => (
+        {job.skills.map((skill, index) => (
           <Box
             key={index}
             display="flex"
@@ -133,11 +165,13 @@ const JobCards = () => {
           <Skeleton height="16px" width="20%" />
         ) : (
           <Text fontSize="xs" color="gray.500">
-            Proposals limit : 20
+            Proposals  : 20
           </Text>
         )}
       </Flex>
     </Box>
+      ))}
+    </>
   );
 };
 

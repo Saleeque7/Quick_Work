@@ -37,7 +37,7 @@ const Rating = ({ reviews }) => {
       </div>
       <div className="flex items-center">
         <HiLocationMarker className="text-teal-500 w-4 h-6" />
-        <span className="ml-2  mr-6 text-gray-500 text-sm">Address</span>
+        <span className="ml-2  mr-6 text-gray-500 text-sm">Mumbai</span>
       </div>
     </div>
   );

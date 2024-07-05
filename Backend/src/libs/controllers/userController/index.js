@@ -7,6 +7,7 @@ import addProfileController from './addProfileController.js'
 import addProfileSecController from './addProfileSecController.js'
 import experienceController from './experienceController.js'
 import isUserprofileController from './isUserprofileController.js'
+import getJobPostController from './getJobPostController.js'
 
 export default (dependencies)=>{
     return{
@@ -17,6 +18,7 @@ export default (dependencies)=>{
         addProfileController:addProfileController(dependencies),
         addProfileSecController:addProfileSecController(dependencies),
         experienceController:experienceController(dependencies),
-        isUserprofileController:isUserprofileController(dependencies)
+        isUserprofileController:isUserprofileController(dependencies),
+        getJobPostController:getJobPostController(dependencies)
     }
 }

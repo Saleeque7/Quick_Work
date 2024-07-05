@@ -25,7 +25,6 @@ const clientSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-
     isVerified: {
       type: Boolean,
       default: false,
@@ -57,6 +56,10 @@ const clientSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    jobPosts: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'JobPost',
+    }],
   },
   {
     timestamps: true,
@@ -64,6 +67,6 @@ const clientSchema = mongoose.Schema(
 );
 
 clientSchema.index({ email: 1 });
-const Client = mongoose.model("client", clientSchema);
+const Client = mongoose.model("Client", clientSchema);
 
 export { Client };

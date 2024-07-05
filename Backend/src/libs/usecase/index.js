@@ -5,9 +5,13 @@ import {
   addProfileUseCase,
   addProfilesecUseCase,
   experienceUsecase,
-  isUserprofileUseCase
+  isUserprofileUseCase,
+  getJobPostUsecase
 } from "./user/index.js";
-import { clientAuthUsecase } from "./clients/clientAuthUseCase.js";
+
+
+import {clientAuthUsecase , browseUsersUsecase ,jobSubmitUseCase,} from './clients/index.js'
+
 import {
   loginUsecase,
   forgotPasswordUseCase,
@@ -34,9 +38,12 @@ export {
   addProfilesecUseCase,
   experienceUsecase,
   isUserprofileUseCase,
+  getJobPostUsecase,
 
   /*client*/
   clientAuthUsecase,
+  browseUsersUsecase,
+  jobSubmitUseCase,
 
   /*login*/
   loginUsecase,

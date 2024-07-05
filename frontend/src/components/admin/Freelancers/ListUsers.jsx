@@ -102,7 +102,7 @@ export default function ListUsers() {
             <div className="column"></div>
             <div className="column">
              { user.isBlock ?
-              <span className="span_1" >Block</span>
+              <span className="span_1" >InActive</span>
               :
               <span>Active</span>
             }
