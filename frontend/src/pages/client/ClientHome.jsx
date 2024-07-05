@@ -10,21 +10,62 @@ import {
   SimpleGrid,
   Heading,
   Image,
+  IconButton,
 } from "@chakra-ui/react";
-import { AddIcon, ArrowForwardIcon } from "@chakra-ui/icons";
+import {
+  AddIcon,
+  ArrowForwardIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+} from "@chakra-ui/icons";
 import UserProfileCards from "../../components/uic/userProfileCards";
 import searchImage from "../../assets/search.webp";
 import UserJobProposal from "../../components/uic/UserJobProposal";
 import Navbar from "../../components/main/Navbar";
 import { useSelector } from "react-redux";
+import { useState,useEffect } from "react";
+import { clientAxiosInstance } from "../../utils/api/privateAxios";
+import { browseUsers } from "../../utils/api/api";
+import { useNavigate } from "react-router-dom";
 
 export default function ClientHome() {
-  const client = useSelector((state)=>state.persisted.client.client)
+  const client = useSelector((state) => state.persisted.client.client);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [users, setUsers] = useState([]);
+const navigate = useNavigate()
+  const usersPerPage = 3
 
+  const handleNextPage = () => {
+    if ((currentPage + 1) * usersPerPage < users.length) {
+      setCurrentPage(prev => prev + 1);
+    }
+  };
+  
+
+  const handlePrevPage = () => {
+    setCurrentPage(prev => Math.max(0, prev - 1));
+  };
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
+  const fetchUserData = async () => {
+    try {
+      const res = await clientAxiosInstance.get(browseUsers);
+      if (res.data) {
+        setUsers(res.data.users);
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  const handlePost = ()=>{
+    navigate('/client/postJob')
+  }
   return (
     <>
       <Box>
-        <Navbar userInfo={client}/>
         <Flex
           justifyContent="center"
           alignItems="center"
@@ -55,6 +96,7 @@ export default function ClientHome() {
                   <Button
                     variant="outline"
                     color="white"
+                    onClick={handlePost}
                     _hover={{ color: "green.500", cursor: "pointer" }}
                   >
                     <Icon as={AddIcon} mr={2} />
@@ -68,23 +110,33 @@ export default function ClientHome() {
             </Stack>
           </Box>
         </Flex>
+
         <Flex
           justifyContent="center"
           alignItems="center"
           flexDirection={{ base: "column", md: "row" }}
           bg="gray.100"
-          p={5}
+          p={24}
         >
-          <SimpleGrid columns={{ base: 1, md: 4 }} mt={-16}>
+          <IconButton
+            icon={<ChevronLeftIcon />}
+            onClick={handlePrevPage}
+            isDisabled={currentPage === 0}
+            mr={3}
+            mt={-16}
+          />
+
+          <SimpleGrid columns={{ base: 1, md: 4 }} mt={-24}>
             <Box
               bgGradient="linear(to-b, purple.200, orange.200)"
               boxShadow="md"
-              w={{ base: "100%", md: "75%" }}
+              transition="all 0.3s ease-in-out"
+              w={{ base: "100%", md: "90%" }}
+              _hover={{ boxShadow: "2xl" }}
               minH={"50vh"}
-              m={10}
+              mt={5}
               alignItems={"center"}
-              borderRadius="md"
-              
+              borderRadius="xl"
             >
               <Heading
                 justifyContent={"flex-start"}
@@ -108,9 +160,19 @@ export default function ClientHome() {
                 <Image src={searchImage} boxSize="200px" mt={3} maxW="200px" />
               </Flex>
             </Box>
-            <UserProfileCards />
+            <UserProfileCards    currentPage={currentPage}
+            usersPerPage={usersPerPage}
+            users={users} />
           </SimpleGrid>
+          <IconButton
+            icon={<ChevronRightIcon />}
+            onClick={handleNextPage}
+            mt={-16}
+            isDisabled={(currentPage + 1) * usersPerPage >= users.length}
+            ml={2}
+          />
         </Flex>
+
         <Flex
           justifyContent="flex-start"
           alignItems="start"
@@ -118,19 +180,17 @@ export default function ClientHome() {
           bg="gray.100"
           p={5}
         >
-          <Box mt={-5} >
+          <Box mt={-5}>
             <Text ml={12} fontWeight={"bold"} fontSize={"xl"}>
               Project Proposals
             </Text>
             <Box mt={5}>
-             
               {/* {proposals.map((user, index) => ( */}
               <UserJobProposal />
               {/* ))} */}
             </Box>
           </Box>
         </Flex>
-        <Footer />
       </Box>
     </>
   );

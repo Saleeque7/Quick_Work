@@ -31,7 +31,7 @@ export default function ListClients() {
   
       setclients((prevClients) =>
         prevClients.map((client) =>
-          client._id === updatedClient._id ? updatedClient : user
+          client._id === updatedClient._id ? updatedClient : client
         )
       );
 
@@ -89,7 +89,7 @@ export default function ListClients() {
             <div className="column">{client.phone ? client.phone :""}</div>
             <div className="column">
              { client.isBlock ?
-              <span className="span_1">Block</span>
+              <span className="span_1">InActive</span>
               :
               <span>Active</span>
             }

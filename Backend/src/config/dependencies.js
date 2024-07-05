@@ -9,9 +9,12 @@ import {
   addProfileUseCase,
   addProfilesecUseCase,
   experienceUsecase,
+  getJobPostUsecase,
 
   /*client*/
   clientAuthUsecase,
+  browseUsersUsecase,
+  jobSubmitUseCase,
 
 
   /*login*/
@@ -48,9 +51,12 @@ const use_case = {
   addProfilesecUseCase,
   experienceUsecase,
   isUserprofileUseCase,
+  getJobPostUsecase,
 
   /*client*/
   clientAuthUsecase,
+  browseUsersUsecase,
+  jobSubmitUseCase,
 
   /*login*/
   loginUsecase,

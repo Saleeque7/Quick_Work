@@ -17,11 +17,14 @@ import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import UserProfile from "../../components/user/UserProfile";
 import { useUserProfile } from "../../utils/context/ProfileContext";
+import { userAxiosInstance } from "../../utils/api/privateAxios";
+import { getJobPost } from "../../utils/api/api";
 
 export default function UserHome() {
   const { userProfile, setUserProfile } = useUserProfile();
   const user = useSelector((state) => state.persisted.user.user);
   const [activeHeading, setActiveHeading] = useState("Best Matches");
+  const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
     if (user.isUserProfile) {
@@ -29,10 +32,29 @@ export default function UserHome() {
     }
   }, [user.isUserProfile]);
 
+  
+  useEffect(()=>{
+    fetchJobPosts(activeHeading)
+  },[activeHeading])
+
+  const fetchJobPosts = async(activeHeading) => {
+    try {
+      
+    const res = await userAxiosInstance.get(getJobPost ,{
+      params:{activeHeading}
+    })
+    console.log(res.data);
+    setJobs(res.data)
+
+      
+    } catch (error) {
+      console.error('Error fetching job posts:', error);
+    }
+  }
+
   return (
     <>
       <Box>
-        <Navbar userInfo={user} />
         {userProfile && (
           <Box>
             <Flex
@@ -148,14 +170,13 @@ export default function UserHome() {
               bg="gray.100"
               p={5}
             >
-              <JobCards />
+              <JobCards jobs={jobs} />
             </Flex>
           </Box>
         )}
 
-        {!userProfile && <UserProfile user={user} />}
+        {!userProfile && <UserProfile user={user}  />}
 
-        <Footer />
       </Box>
     </>
   );

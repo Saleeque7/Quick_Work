@@ -23,7 +23,7 @@ import { logoutClient } from "../../utils/Redux/recruiterSlice.jsx";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useUserProfile } from "../../utils/context/ProfileContext";
-
+import ProfileClient from "../uic/ProfileClient.jsx";
 
 const Navbar = ({userInfo}) => {
   const { userProfile , setUserProfile } = useUserProfile();
@@ -109,17 +109,18 @@ const Navbar = ({userInfo}) => {
         >
           <Logo />
         </Text>
+          {userInfo?.job_role === "client" &&<DesktopNavClient userInfo= {userInfo} />}
         <Flex display={{ base: "none", md: "flex" }} ml={10} pb={0}>
         {userInfo?.job_role === "freelancer" && 
          <DesktopNav userInfo= {userInfo} />
 }
-         {userInfo?.job_role === "client" &&<DesktopNavClient userInfo= {userInfo} />}
         </Flex>
         <Stack flex={{ base: 1, md: 1 }} justify="flex-end" direction="row">
-        {/*  */}
+        {userInfo?.job_role === "client" && <ProfileClient userInfo={userInfo} />} 
         {userInfo ? (
             <>
-              <Button
+              <Button             
+              mt={5}
                 size="sm"
                 as="a"
                 display={{ base: "none", md: "inline-flex" }}
