@@ -23,7 +23,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                 <App />
               </ProfileProvider>
             </ForgotPassContextProvider>
-
             <ToastContainer />
           </ChakraProvider>
         </BrowserRouter>
