@@ -1,30 +1,28 @@
-import Navbar from "../../components/main/Navbar";
+
 import {
   Box,
-  Heading,
   Text,
-  Button,
   Flex,
-  Image,
-  Icon,
   Divider,
 } from "@chakra-ui/react";
 import Carousel from "../../components/uic/Carousel";
 import ProfileBar from "../../components/uic/ProfileBar";
 import JobCards from "../../components/uic/JobCards";
-import Footer from "../../components/main/footer";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import UserProfile from "../../components/user/UserProfile";
 import { useUserProfile } from "../../utils/context/ProfileContext";
 import { userAxiosInstance } from "../../utils/api/privateAxios";
 import { getJobPost } from "../../utils/api/api";
+import { Pagination } from "../../components/user/Pagination";
 
 export default function UserHome() {
   const { userProfile, setUserProfile } = useUserProfile();
   const user = useSelector((state) => state.persisted.user.user);
   const [activeHeading, setActiveHeading] = useState("Best Matches");
   const [jobs, setJobs] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     if (user.isUserProfile) {
@@ -35,18 +33,16 @@ export default function UserHome() {
   
   useEffect(()=>{
     fetchJobPosts(activeHeading)
-  },[activeHeading])
+  },[activeHeading,currentPage])
 
-  const fetchJobPosts = async(activeHeading) => {
+  const fetchJobPosts = async(activeHeading ,  page = 1, limit = 3) => {
     try {
       
     const res = await userAxiosInstance.get(getJobPost ,{
-      params:{activeHeading}
+      params: { activeHeading, page, limit }
     })
     console.log(res.data);
-    setJobs(res.data)
-
-      
+    setJobs(res.data)   
     } catch (error) {
       console.error('Error fetching job posts:', error);
     }
@@ -128,7 +124,10 @@ export default function UserHome() {
                   color={activeHeading === heading ? "green" : "dark"}
                   ml={5}
                   _hover={{ color: "teal.700", cursor: "pointer" }}
-                  onClick={() => setActiveHeading(heading)}
+                  onClick={() => {
+                    setActiveHeading(heading);
+                    setCurrentPage(1); 
+                  }}
                   pl={8}
                 >
                   {heading}
@@ -171,6 +170,11 @@ export default function UserHome() {
               p={5}
             >
               <JobCards jobs={jobs} />
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+              />
             </Flex>
           </Box>
         )}
