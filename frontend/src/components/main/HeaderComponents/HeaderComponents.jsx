@@ -12,21 +12,19 @@ import { useUserProfile } from "../../../utils/context/ProfileContext";
 
 const DesktopNav = ({ userInfo }) => {
   const {userProfile }  = useUserProfile()
- 
+  const isUserProfile = userInfo.isUserProfile;
   const linkColor = useColorModeValue("gray.600", "gray.200");
   const linkHoverColor = useColorModeValue("gray.800", "white");
   const navigate = useNavigate();
 
   const NAV_ITEMS =  [
-        { label: "Find Work", href: "/userAuctions" },
-        { label: "My Work", href: "/userSellers" },
-        { label: "Message", href: "/userAuctioning" },
-        { label: "Auction", href: "/userWatchlist" },
-      ]
-  
-    
+        { label: "Find Work", href: "/user/findWork" },
+        { label: "My Work", href: "/user/workList" },
+        { label: "Message", href: "/user/messages" },
+        // { label: "Auction", href: "/userWatchlist" },
+      ]  
   return (
-    userProfile  && (
+    isUserProfile  && (
     <Stack direction="row" spacing={4}>
       {NAV_ITEMS.map((navItem) => (
         <Box key={navItem.label}>
@@ -62,10 +60,10 @@ const DesktopNavClient = ({ userInfo }) => {
   const navigate = useNavigate();
 
   const NAV_ITEMS =  [
-        { label: "Find Talent", href: "/userAuctions" },
-        { label: "My Jobs", href: "/userSellers" },
-        { label: "Message", href: "/userAuctioning" },
-        { label: "Create Auction", href: "/userWatchlist" },
+        { label: "Find Talent", href: "/client/UserList" },
+        { label: "My Jobs", href: "/client/joblisted" },
+        { label: "Message", href: "/client/messages" },
+        // { label: "Create Auction", href: "/userWatchlist" },
       ];
     
   return (

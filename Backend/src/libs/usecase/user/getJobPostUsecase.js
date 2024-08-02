@@ -1,5 +1,5 @@
 export const getJobPostUsecase =(dependencies)=>{
-    const {repositories : {repository : {getjobcards , getMatchingjobcards}}} = dependencies
+    const {repositories : {repository : {getjobcards , getMatchingjobcards , getSavedJobs}}} = dependencies
     const execute = async(heading , userId)=>{
 
         try {

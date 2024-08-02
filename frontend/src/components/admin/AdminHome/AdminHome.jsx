@@ -7,12 +7,17 @@ export default function AdminHomePage() {
 
 
   return (
+    <>
     <div className="home-div">
       <div className="welcome-message">
         <h1>Welcome, {admin?.name ? admin.name : "Admin"}!</h1>
         <p>We hope you have a productive day!</p>
       </div>
+    <div className="head-2">
+      <h2>saleeque</h2>
     </div>
+    </div>
+    </>
   );
 }
 

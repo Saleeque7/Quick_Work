@@ -6,11 +6,54 @@ import {
   addProfilesecUseCase,
   experienceUsecase,
   isUserprofileUseCase,
-  getJobPostUsecase
+  getJobPostUsecase,
+  browseJobpostUsecase,
+  applynowUsecase,
+  notificationUsecase,
+  markasReaduseCase,
+  userContractUsecase,
+  ContractactionuseCase,
+  acceptedContractuseCase,
+  submitJobUsecase,
+  findWorkUsecase,
+  getclientInfoUsecase,
+  alljobproposalsUsecase,
+  viewjobproposalsUsecase,
+  userinfoUsecase,
+  edituserInfoUsecase,
+  savejobUsecese,
+  savedjobUseCase,
+  unsavejobUsecese,
+  disLikejobUsecase,
+  LikejobUsecase,
+  editproposalUsecase,
 } from "./user/index.js";
 
+import {
+  clientAuthUsecase,
+  browseUsersUsecase,
+  jobSubmitUseCase,
+  browseJobUsecase,
+  browseJobPostsUseCase,
+  browseJobProposalsUsecase,
+  shortListJobProposalsUsecase,
+  unshortListJobProposalsUsecase,
+  archiveJobProposalsUsecase,
+  unarchiveJobProposalsUsecase,
+  declineJobProposalsUsecase,
+  offerLetterUsecase,
+  createContractuseCase,
+  saveAddressUsecase,
+  paymentUsecase,
+  verifypaymentuseCase,
+  browseContractsUseCase,
+  paymentAfterUsecase,
+  getContractUsecase,
+  getuserInfoUsecase,
+  submittedContractusecase
 
-import {clientAuthUsecase , browseUsersUsecase ,jobSubmitUseCase,} from './clients/index.js'
+
+} from "./clients/index.js";
 
 import {
   loginUsecase,
@@ -23,12 +66,21 @@ import {
   googleLoginUseCase,
   gitHubUsecase,
   gitUserInfoUsecase,
-  gitLoginUsecase
+  gitLoginUsecase,
 } from "./login/index.js";
 
-import { adminAuthuseCase, registerUsecase, getUserDataUseCase, getClientDataUseCase, blockUserUseCase, unblockUserUseCase ,  blockclientUseCase,
-  unblockclientUseCase } from "./admin/index.js";
+import {
+  adminAuthuseCase,
+  registerUsecase,
+  getUserDataUseCase,
+  getClientDataUseCase,
+  blockUserUseCase,
+  unblockUserUseCase,
+  blockclientUseCase,
+  unblockclientUseCase,
+} from "./admin/index.js";
 
+import { createChatuseCase , getChatUsecase , findchatUsecase , getmessageUsecase ,messageUsecase} from "./chat/index.js";
 export {
   /*user*/
   authRegisterUsecase,
@@ -39,11 +91,50 @@ export {
   experienceUsecase,
   isUserprofileUseCase,
   getJobPostUsecase,
-
+  browseJobpostUsecase,
+  applynowUsecase,
+  notificationUsecase,
+  markasReaduseCase,
+  userContractUsecase,
+  ContractactionuseCase,
+  acceptedContractuseCase,
+  submitJobUsecase,
+  findWorkUsecase,
+  getclientInfoUsecase,
+  alljobproposalsUsecase,
+  viewjobproposalsUsecase,
+  userinfoUsecase,
+  edituserInfoUsecase,
+  savejobUsecese,
+  savedjobUseCase,
+  unsavejobUsecese,
+  disLikejobUsecase,
+  LikejobUsecase,
+  editproposalUsecase,
+  
   /*client*/
+  submittedContractusecase, 
   clientAuthUsecase,
   browseUsersUsecase,
   jobSubmitUseCase,
+  browseJobUsecase,
+  browseJobPostsUseCase,
+  browseJobProposalsUsecase,
+  shortListJobProposalsUsecase,
+  unshortListJobProposalsUsecase,
+  archiveJobProposalsUsecase,
+  unarchiveJobProposalsUsecase,
+  declineJobProposalsUsecase,
+  offerLetterUsecase,
+  createContractuseCase,
+  saveAddressUsecase,
+  paymentUsecase,
+  verifypaymentuseCase,
+  browseContractsUseCase,
+  paymentAfterUsecase,
+  getContractUsecase,
+  getuserInfoUsecase,
+
 
   /*login*/
   loginUsecase,
@@ -66,5 +157,12 @@ export {
   blockUserUseCase,
   unblockUserUseCase,
   blockclientUseCase,
-  unblockclientUseCase
+  unblockclientUseCase,
+
+  // chat
+  createChatuseCase,
+  getChatUsecase,
+  findchatUsecase,
+  getmessageUsecase,
+  messageUsecase
 };

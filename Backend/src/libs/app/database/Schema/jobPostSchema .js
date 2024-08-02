@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+
 const jobPostSchema = mongoose.Schema(
   {
     projectTerm: {
@@ -43,12 +44,14 @@ const jobPostSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Client',
       required: true,
-    }
+    },
+    proposals:[{ type:mongoose.Schema.Types.ObjectId, ref: 'Proposal' }],
   },
   {
     timestamps: true,
   }
 );
+
 
 const JobPost = mongoose.model("JobPost", jobPostSchema);
 

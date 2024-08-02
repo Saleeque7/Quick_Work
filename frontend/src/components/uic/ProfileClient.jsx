@@ -13,19 +13,11 @@ const navigate = useNavigate ()
       alignItems="center"
       p={2}
       bg="transperant"
-      borderRadius="md"
-      mr={10}
+      borderRadius="sm"
+      mr={4}
       
     >
       <Avatar name={userInfo.name} src={userInfo.profilePicture} onClick={handleNavigate} cursor={"pointer"}/>
-      <Box ml={3}>
-        <Text fontWeight="bold" color="black">
-          {userInfo.name}
-        </Text>
-        <Text fontSize="sm" color="black">
-          {userInfo.email}
-        </Text>
-      </Box>
     </Box>
   );
 };

@@ -67,7 +67,7 @@ const disPatch = useDispatch()
                 localStorage.setItem("adminaccessToken",accessToken)
                 navigate("/admin/dashboard");
             
-            }, 1000);
+            }, 2000);
           } else {
             toast.error(res.data.message, {
               autoClose: 1000,

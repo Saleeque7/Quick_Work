@@ -1,4 +1,53 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
+
+
+const transactionSchema = mongoose.Schema({
+    amount: {
+        type: Number,
+    },
+    source: {
+        type: String,     
+        enum: [
+          'Payment received',
+          'Withdrawal',
+          'Transfer from another wallet',
+          'convinience Fee'
+          
+        ],
+      },
+    contractId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Contract', 
+        
+    },
+    status: {
+        type: String,
+        enum: ['credit', 'debit'],
+        default: 'credit',
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
+});
+
+
+const walletSchema = new mongoose.Schema(
+    {
+      balance: {
+        type: Number,
+        default: 0,
+      },
+      transactions: [transactionSchema],
+    },
+    {
+      _id: false,
+    },
+    {
+      timestamps: true,
+    }
+  );
+
 
 const adminSchema = mongoose.Schema({
     name: {
@@ -20,7 +69,6 @@ const adminSchema = mongoose.Schema({
         type: String,
         required: false
     },
-
     isVerified: {
         type: Boolean,
         default: false
@@ -38,11 +86,12 @@ const adminSchema = mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now
-    }
+    },
+    wallet: walletSchema  
+});
 
-})
+adminSchema.index({ email: 1 });
 
-adminSchema.index({ email: 1 })
-const Admin = mongoose.model('admin', adminSchema)
+const Admin = mongoose.model('Admin', adminSchema);
 
 export { Admin };

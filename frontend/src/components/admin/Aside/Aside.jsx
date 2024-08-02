@@ -53,7 +53,7 @@ export const Aside = () => {
           { name: "Dashboard", icon: <FaHome size={20} color="teal" />, path: "/admin/dashboard" },
           { name: "Freelancers", icon: <FaUserTie size={20} color="teal" />, path: "/admin/freelancers" },
           { name: "Clients", icon: <FaUserFriends size={20} color="teal" />, path: "/admin/clients" },
-          { name: "Auction", icon: <FaGavel size={20} color="teal" />, path: "/admin/auction" },
+          // { name: "Auction", icon: <FaGavel size={20} color="teal" />, path: "/admin/auction" },
           { name: "Billings", icon: <FaMoneyBillAlt size={20} color="teal" />, path: "/admin/billings" },
           { name: "Settings", icon: <FaCog size={20} color="teal" />, path: "/admin/settings" },
         ].map((item, index) => (

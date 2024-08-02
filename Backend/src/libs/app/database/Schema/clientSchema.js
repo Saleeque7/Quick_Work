@@ -1,5 +1,60 @@
 import mongoose from "mongoose";
 
+
+const transactionSchema = new mongoose.Schema(
+  {
+    amount: {
+      type: Number,
+      required: true,
+    },
+    source: {
+      type: String,
+      required: true,
+      enum: [
+        'Payment received',
+        'Refund received',
+        'Withdrawal',
+      
+      ], 
+    },
+    contractId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Contract', 
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: ['credit', 'debit'],
+      default: 'credit',
+  },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+
+const walletSchema = new mongoose.Schema(
+  {
+    balance: {
+      type: Number,
+      default: 0,
+    },
+    transactions: [transactionSchema],
+  },
+  {
+    _id: false,
+  },
+  {
+    timestamps: true,
+  }
+);
+
+
 const clientSchema = mongoose.Schema(
   {
     name: {
@@ -37,7 +92,7 @@ const clientSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    islike: {
+    isLike: {
       type: Boolean,
       default: false,
     },
@@ -60,6 +115,25 @@ const clientSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'JobPost',
     }],
+    spentAmount: {
+      type: Number,
+      default: 0,
+    },
+    address: {
+      address: {
+        type: String,
+      },
+      state: {
+        type: String,
+      },
+      city: {
+        type: String,
+      },
+      postalCode: {
+        type: Number,
+      }
+    },
+    wallet: walletSchema,  
   },
   {
     timestamps: true,
