@@ -6,7 +6,7 @@ import UserRoute from './routes/userRoute';
 import ClientRoute from './routes/ClientRoutes';
 import AdminRoute from './routes/AdminRoute';
 import LandingRoute from "./routes/landingRoute";
-import ListedJobs from './pages/client/ListedJobs';
+
 
 import { UserProtectedRoute, ClientProtectedRoute, AdminProtectedRoute  } from './utils/middleWare/ProtectedRoute';
 
@@ -16,7 +16,6 @@ function App() {
     <Routes>
  
       <Route path="/*" element={<LandingRoute />} />
-      <Route path="/listjobs" element={<ListedJobs />} />
 
       <Route element={<UserProtectedRoute />}>
         <Route path="/user/*" element={<UserRoute />} />

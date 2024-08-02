@@ -51,7 +51,7 @@ export default function ListUsers() {
     try {
       const response = await adminAxiosInstance.put(`${unblockUserApi}?id=${userId}`);
       const updatedUser = response.data.user; 
-  
+ 
       setUsers((prevUsers) =>
         prevUsers.map((user) =>
           user._id === updatedUser._id ? updatedUser : user
@@ -59,7 +59,7 @@ export default function ListUsers() {
       );
 
     } catch (error) {
-      console.error("Error blocking user", error);
+      console.error("Error unblockblocking user", error);
     }
   }
   

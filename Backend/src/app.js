@@ -4,16 +4,28 @@ import morgan from 'morgan'
 import { routes } from './routes/index.js'
 import dependencies from './config/dependencies.js'
 import cookieParser from 'cookie-parser'
-const app = express()
+import { createServer } from 'http';
+import { Server } from 'socket.io';
+import setupSocketHandlers from './socket.js';
+
+const app = express();
+const server = createServer(app);
+
+const io = new Server(server, {
+  cors: {
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST'],
+    credentials: true,
+  },
+});
+
+
 app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(morgan('dev'))
 
-// app.use((req, res, next) => {
-//     res.header('Referrer-Policy', 'no-referrer-when-downgrade');
-//     next();
-//   });
+
   
 app.use(cors({
     origin: 'http://localhost:3000',
@@ -21,6 +33,7 @@ app.use(cors({
 }))
 
 app.use('/quickwork',routes(dependencies))
+setupSocketHandlers(io);
 
-export { app }
+export { app ,server }
 

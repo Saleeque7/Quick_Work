@@ -3,6 +3,7 @@ export const jobSubmitUseCase = (dependencies) => {
   
     const execute = async (data, clientId) => {
       try {
+        console.log(data,"usecase");
         const jobPost = await createJobrequest(data, clientId);
         return jobPost;
       } catch (error) {

@@ -12,19 +12,21 @@ import {
 import Carousel from "../../components/uic/Carousel";
 import ProfileBar from "../../components/uic/ProfileBar";
 import JobCards from "../../components/uic/JobCards";
-import Footer from "../../components/main/footer";
+
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import UserProfile from "../../components/user/UserProfile";
 import { useUserProfile } from "../../utils/context/ProfileContext";
 import { userAxiosInstance } from "../../utils/api/privateAxios";
-import { getJobPost } from "../../utils/api/api";
+import { getJobPost ,getsavedJobApi } from "../../utils/api/api";
 
 export default function UserHome() {
   const { userProfile, setUserProfile } = useUserProfile();
   const user = useSelector((state) => state.persisted.user.user);
   const [activeHeading, setActiveHeading] = useState("Best Matches");
   const [jobs, setJobs] = useState([]);
+  const [savedJobs, setSavedJobs] = useState([]);
+  const [DislikeJobs, setDislikeJobs] = useState([]);
 
   useEffect(() => {
     if (user.isUserProfile) {
@@ -32,25 +34,37 @@ export default function UserHome() {
     }
   }, [user.isUserProfile]);
 
-  
-  useEffect(()=>{
-    fetchJobPosts(activeHeading)
-  },[activeHeading])
+  useEffect(() => {
+   if(activeHeading !== "Saved Jobs" ){
+     fetchJobPosts(activeHeading);
+   }else{
+    fetchSavedJobs()
+   }
+  }, [activeHeading]);
 
-  const fetchJobPosts = async(activeHeading) => {
+  const fetchJobPosts = async (activeHeading) => {
+  
     try {
-      
-    const res = await userAxiosInstance.get(getJobPost ,{
-      params:{activeHeading}
-    })
-    console.log(res.data);
-    setJobs(res.data)
+      const res = await userAxiosInstance.get(getJobPost, {
+        params: { activeHeading },
+      });
+      console.log(res.data);
+      setJobs(res.data);
 
       
     } catch (error) {
-      console.error('Error fetching job posts:', error);
+      console.error("Error fetching job posts:", error);
     }
-  }
+  };
+
+  const fetchSavedJobs = async () => {
+    try {
+      const res = await userAxiosInstance.get(getsavedJobApi)
+      setSavedJobs(res.data.map(item => item.job));
+    } catch (error) {
+      console.error("Error fetching job posts:", error);
+    }
+  };
 
   return (
     <>
@@ -119,7 +133,7 @@ export default function UserHome() {
               p={5}
             >
               {["Best Matches", "Most Recent", "Saved Jobs"].map((heading) => (
-                <Text
+                <Box
                   key={heading}
                   fontSize="xl"
                   fontWeight="bold"
@@ -132,7 +146,7 @@ export default function UserHome() {
                   pl={8}
                 >
                   {heading}
-                </Text>
+                </Box>
               ))}
             </Flex>
 
@@ -155,7 +169,11 @@ export default function UserHome() {
               <Text ml={16}>
                 {activeHeading === "Best Matches"
                   ? `*Browse jobs that match your experience to a client's hiring preferences. Ordered by most relevant.`
-                  : `*Browse the most recent jobs that match your skills and profile description to the skills clients are looking for.`}
+                  : activeHeading === "Most Recent"
+                  ? `*Browse the most recent jobs that match your skills and profile description to the skills clients are looking for.`
+                  : activeHeading === "Saved Jobs"
+                  ? `*Apply for jobs from the saved list.`
+                  : null}
               </Text>
             </Flex>
 
@@ -170,13 +188,12 @@ export default function UserHome() {
               bg="gray.100"
               p={5}
             >
-              <JobCards jobs={jobs} />
+              <JobCards jobs={jobs} activeHeading={activeHeading}   savedJobs={savedJobs} setSavedJobs={setSavedJobs} DislikeJobs={DislikeJobs} setDislikeJobs={setDislikeJobs}/>
             </Flex>
           </Box>
         )}
 
-        {!userProfile && <UserProfile user={user}  />}
-
+        {!userProfile && <UserProfile user={user} />}
       </Box>
     </>
   );

@@ -172,7 +172,7 @@ const navigate = useNavigate()
             ml={2}
           />
         </Flex>
-
+{/* 
         <Flex
           justifyContent="flex-start"
           alignItems="start"
@@ -186,12 +186,13 @@ const navigate = useNavigate()
             </Text>
             <Box mt={5}>
               {/* {proposals.map((user, index) => ( */}
-              <UserJobProposal />
+              {/* <UserJobProposal /> */}
               {/* ))} */}
             </Box>
-          </Box>
-        </Flex>
-      </Box>
+          {/* </Box> */}
+          
+        {/* // </Flex> */}
+      {/* </Box> */}
     </>
   );
 }

@@ -1,6 +1,6 @@
 // src/pages/admin/AdminHome/adminHome.scss
 
-$mainwhite-color: #f8f8f8;
+$mainwhite-color: #6f2929;
 $secondwhite-color: #fefefe;
 $darkblue-color: #000080;
 
@@ -15,5 +15,7 @@ $darkblue-color: #000080;
   width: 100%;
   height: 3000px;
   background-color: $mainwhite-color;
-  position: relative;
+  position: flex;
+  min-height: 90%;
+  
 }

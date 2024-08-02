@@ -1,4 +1,4 @@
-import { app } from './app.js'
+import { app , server } from './app.js'
 import connectDb from './config/db.js'
 import confiq from './config/config.js'
 
@@ -10,7 +10,7 @@ const start = async ()=>{
     } catch (error) {
         console.log(error);
     }
-    app.listen(confiq.PORT, () => {
+    server.listen(confiq.PORT, () => {
         console.log(`server running on ${confiq.PORT}`);
     })
 }

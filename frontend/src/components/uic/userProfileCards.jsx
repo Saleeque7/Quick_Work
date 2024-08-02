@@ -66,12 +66,12 @@ export default function UserProfileCards({currentPage , usersPerPage , users }) 
                 {user?.State}
               </Text>
             </Box>
-            <Icon
+            {/* <Icon
               as={GrFavorite}
               style={{ color: "teal" }}
               mt={-4}
               boxSize={6}
-            />
+            /> */}
           </Flex>
           <Flex justify={"flex-start"}>
             <Text p={5} fontSize={"xl"} font color="gray.600">

@@ -1,6 +1,127 @@
 import mongoose from "mongoose";
 import { experienceSchema } from "./experienceSchema.js";
-const userSchema = mongoose.Schema(
+
+// Transaction Schema
+const transactionSchema = new mongoose.Schema(
+  {
+    amount: {
+      type: Number,
+    },
+    source: {
+      type: String,
+      required: true,
+      enum: [
+        'Payment received',
+        'Refund received',
+        'Withdrawal',
+      
+      ], 
+    },
+    contractId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Contract',  
+    },
+    status: {
+      type: String,
+      enum: ['credit', 'debit'],
+      default: 'credit',
+  },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+
+const walletSchema = new mongoose.Schema(
+  {
+    balance: {
+      type: Number,
+      default: 0,
+    },
+    transactions: [transactionSchema],
+  },
+  {
+    _id: false,
+  },
+  {
+    timestamps: true,
+  }
+);
+
+const notificationSchema = new mongoose.Schema(
+  {
+    _id: {
+      type: mongoose.Schema.Types.ObjectId,
+      auto: true,
+    },
+    proposalId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Proposal',
+      required: true,
+    },
+    clientId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Client',
+      required: true,
+    },
+    jobId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'JobPost',
+      required: true,
+    },
+    contractId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Contract',
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: ['read', 'unread'],
+      default: 'unread',
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+// Saved Job Schema
+const savedJobSchema = new mongoose.Schema(
+  {
+    job: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'JobPost',
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    }
+  },
+  { _id: false }
+);
+
+// Not Interested Job Schema
+const notInterestedJobSchema = new mongoose.Schema(
+  {
+    job: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'JobPost',
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    }
+  },
+  { _id: false }
+);
+
+// User Schema
+const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -78,13 +199,22 @@ const userSchema = mongoose.Schema(
       type: Number,
       default: 0,
     },
+    totalEarnings: {
+      type: Number,
+      default: 0
+    },
     dateOfBirth: {
       type: Date,
     },
-    State: {
+    state: {
       type: String,
     },
+    savedJobs: [savedJobSchema],
+    notInterestedJobs: [notInterestedJobSchema],
     experiences: [experienceSchema],
+    applications: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Proposal' }],
+    notifications: [notificationSchema], 
+    wallet: walletSchema,  
   },
   {
     timestamps: true,

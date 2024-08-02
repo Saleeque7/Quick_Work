@@ -3,11 +3,13 @@ $teal-color: teal;
 
 .home-div {
   padding: 30px;
-  padding-left: 95px;
+  padding-left: 40px;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: aqua;
+ 
   
   .welcome-message {
     text-align: center;
@@ -25,6 +27,12 @@ $teal-color: teal;
       font-size: 18px;
       color: gray;
     }
+  }
+  .head-2{
+    width: 100%;
+    height: 100px;
+    background-color: blue;
+    padding-left: 50px;
   }
 }
 

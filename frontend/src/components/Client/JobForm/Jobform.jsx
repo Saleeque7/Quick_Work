@@ -105,29 +105,48 @@ export default function Jobform() {
   };
 
   const handleSubmit = async() => {
-    if (validateForm()) {
-      console.log("Form submitted successfully");
-      const formData = {
-        selectedItem,
-        jobRole,
-        skills,
-        budgetType,
-        overviewInput
-      };
-  
-      if (budgetType === "fixed") {
-        formData.budget = budget;
-      } else if (budgetType === "hourly") {
-        formData.wageRangeMin = wageRangeMin;
-        formData.wageRangeMax = wageRangeMax;
-        formData.selecthour = selecthour;
+    try {
+      if (validateForm()) {
+        console.log("Form submitted successfully");
+        const formData = {
+          selectedItem,
+          jobRole,
+          skills,
+          budgetType,
+          overviewInput
+        };
+    
+        if (budgetType === "fixed") {
+          formData.budget = budget;
+        } else if (budgetType === "hourly") {
+          formData.wageRangeMin = wageRangeMin;
+          formData.wageRangeMax = wageRangeMax;
+          formData.selecthour = selecthour;
+        }
+         console.log(formData);
+        const res = await clientAxiosInstance.post(jobSubmit,formData)
+        console.log(res.data.jobPost,"wttt");
+        console.log(res.data.jobPost._id,"wttt");
+        const id  = res.data.jobPost._id
+        if(id && res.data){
+          toast.success("success", {
+            autoClose: 1000,
+            closeButton: true,
+            draggable: true,
+          });
+          setTimeout(() => {
+            navigate(`/client/listjobs/${id}`)       
+          }, 1000);
+        }
       }
-       console.log(formData);
-      const res = await clientAxiosInstance.post(jobSubmit,formData)
-      if(res.data){
-        toast.success("success")
-        navigate('/client/home')
-      }
+    } catch (error) {
+      toast.error("Failed to submit job", {
+        autoClose: 1000,
+        closeButton: true,
+        draggable: true,
+      });
+
+      console.error(error);
     }
   };
 

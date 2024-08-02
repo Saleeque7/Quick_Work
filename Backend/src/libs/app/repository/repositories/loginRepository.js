@@ -1,6 +1,6 @@
-import { Admin } from "../../database/Schema/adminSchema.js";
+
 import Schema from "../../database/index.js";
-const { User , Client } = Schema
+const { User , Client ,Admin } = Schema
 export const loginRepository = { 
     findUserByEmail:async (email)=> {
         const user = await User.findOne({email:email})

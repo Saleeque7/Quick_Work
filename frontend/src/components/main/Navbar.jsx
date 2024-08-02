@@ -13,44 +13,47 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import { DesktopNav,MobileNav,DesktopNavClient } from "./HeaderComponents/HeaderComponents.jsx";
+import {
+  DesktopNav,
+  MobileNav,
+  DesktopNavClient,
+} from "./HeaderComponents/HeaderComponents.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import {logout} from  "../../utils/Redux/userSlice.jsx";
+import { logout } from "../../utils/Redux/userSlice.jsx";
 import { logoutClient } from "../../utils/Redux/recruiterSlice.jsx";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useUserProfile } from "../../utils/context/ProfileContext";
 import ProfileClient from "../uic/ProfileClient.jsx";
+import { MdNotificationsNone } from "react-icons/md";
 
-const Navbar = ({userInfo}) => {
-  const { userProfile , setUserProfile } = useUserProfile();
+const Navbar = ({ userType, userInfo }) => {
+  const { userProfile, setUserProfile } = useUserProfile();
 
-  const [isHovered , setHovered] = useState(false)
+  const [isHovered, setHovered] = useState(false);
   const { isOpen, onToggle } = useDisclosure();
   const navigate = useNavigate();
- 
-  
-  const dispatch = useDispatch()
+
+  const dispatch = useDispatch();
 
   const handleLogout = async () => {
     if (userInfo.job_role === "freelancer") {
-      setUserProfile(!userProfile)
+      setUserProfile(!userProfile);
       await dispatch(logout());
     } else if (userInfo.job_role === "client") {
       await dispatch(logoutClient());
     }
-    navigate('/',{replace:true});
+    navigate("/", { replace: true });
   };
-
 
   const handleLogin = () => {
-    navigate("/login",{replace:true});
+    navigate("/login", { replace: true });
   };
   const handleSignup = () => {
-    navigate("/pre",{replace:true});
+    navigate("/pre", { replace: true });
   };
   return (
     <Box
@@ -63,14 +66,11 @@ const Navbar = ({userInfo}) => {
       borderStyle="solid"
       borderColor={useColorModeValue("gray.200", "gray.900")}
       bgGradient={[
-        'linear(to-br, teal.300, yellow.100)',
-        'linear(to-b, blue.200, teal.500)',
-        'linear(to-t, orange.100, teal.300)',
+        "linear(to-br, teal.300, yellow.100)",
+        "linear(to-b, blue.200, teal.500)",
+        "linear(to-t, orange.100, teal.300)",
       ]}
-      
     >
- 
-
       <Flex
         flex={{ base: 1, md: "auto" }}
         ml={{ base: -2 }}
@@ -86,7 +86,7 @@ const Navbar = ({userInfo}) => {
           variant="ghost"
           aria-label="Toggle Navigation"
         />
-        <Text
+        <Box
           display={{ base: "flex", md: "none" }}
           textAlign={useBreakpointValue({ base: "center", md: "left" })}
           fontFamily="heading"
@@ -94,33 +94,47 @@ const Navbar = ({userInfo}) => {
           mt="-10px"
         >
           <Logo />
-        </Text>
+        </Box>
       </Flex>
       <Flex
         flex={{ base: 1 }}
-        justify={{ base: "center", md: "start" }}
+        justify={{ base: "center", md: "center" }}
         align="center"
       >
-        <Text
+        <Box
           display={{ base: "none", md: "flex" }}
           textAlign={useBreakpointValue({ base: "center", md: "left" })}
           fontFamily="heading"
           color={useColorModeValue("gray.800", "white")}
         >
-          <Logo />
-        </Text>
-          {userInfo?.job_role === "client" &&<DesktopNavClient userInfo= {userInfo} />}
+          <Logo  userInfo={userInfo}/>
+        </Box>
+        
+        {userInfo?.job_role === "client" && (
+          <DesktopNavClient userInfo={userInfo} />
+        )}
+
+
         <Flex display={{ base: "none", md: "flex" }} ml={10} pb={0}>
-        {userInfo?.job_role === "freelancer" && 
-         <DesktopNav userInfo= {userInfo} />
-}
+          {userInfo?.job_role === "freelancer" && (
+            <DesktopNav userInfo={userInfo} />
+          )}
         </Flex>
+
+
+
         <Stack flex={{ base: 1, md: 1 }} justify="flex-end" direction="row">
-        {userInfo?.job_role === "client" && <ProfileClient userInfo={userInfo} />} 
-        {userInfo ? (
+          {userInfo?.job_role === "client" && (
+            <ProfileClient userInfo={userInfo} />
+          )}
+          {userInfo?.job_role === "freelancer" && (
+            <MdNotificationsNone className=" flex items-center mt-5 mr-5 text-3xl cursor-pointer" onClick={()=>navigate('/user/notifications')}/>
+          )}
+
+          {userInfo ? (
             <>
-              <Button             
-              mt={5}
+              <Button
+                mt={5}
                 size="sm"
                 as="a"
                 display={{ base: "none", md: "inline-flex" }}
@@ -136,32 +150,32 @@ const Navbar = ({userInfo}) => {
             </>
           ) : (
             <>
-            <Button
-              size="sm"
-              as="a"
-              display={{ base: "none", md: "inline-flex" }}
-              fontSize="sm"
-              fontWeight={600}
-              color="white"
-              bg="teal.700"
-              onClick={handleLogin}
-              _hover={{ bg: "blue.700" }}
-            >
-              Login
-            </Button>
-            <Button
-              size="sm"
-              as="a"
-              display={{ base: "none", md: "inline-flex" }}
-              fontSize="sm"
-              fontWeight={600}
-              color="white"
-              bg="teal.400"
-              onClick={handleSignup}
-              _hover={{ bg: "blue.700" }}
-            >
-              SignUp
-            </Button>
+              <Button
+                size="sm"
+                as="a"
+                display={{ base: "none", md: "inline-flex" }}
+                fontSize="sm"
+                fontWeight={600}
+                color="white"
+                bg="teal.700"
+                onClick={handleLogin}
+                _hover={{ bg: "blue.700" }}
+              >
+                Login
+              </Button>
+              <Button
+                size="sm"
+                as="a"
+                display={{ base: "none", md: "inline-flex" }}
+                fontSize="sm"
+                fontWeight={600}
+                color="white"
+                bg="teal.400"
+                onClick={handleSignup}
+                _hover={{ bg: "blue.700" }}
+              >
+                SignUp
+              </Button>
             </>
           )}
         </Stack>
@@ -176,6 +190,5 @@ const Navbar = ({userInfo}) => {
     </Box>
   );
 };
-
 
 export default Navbar;

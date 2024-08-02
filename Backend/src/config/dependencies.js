@@ -10,13 +10,50 @@ import {
   addProfilesecUseCase,
   experienceUsecase,
   getJobPostUsecase,
-
+  browseJobpostUsecase,
+  applynowUsecase,
+  notificationUsecase,
+  markasReaduseCase,
+  userContractUsecase,
+  ContractactionuseCase,
+  acceptedContractuseCase,
+  submitJobUsecase,
+  findWorkUsecase,
+  getclientInfoUsecase,
+  alljobproposalsUsecase,
+  viewjobproposalsUsecase,
+  userinfoUsecase,
+  edituserInfoUsecase,
+  savejobUsecese,
+  savedjobUseCase,
+  unsavejobUsecese,
+  disLikejobUsecase,
+  LikejobUsecase,
+  editproposalUsecase,
+  
   /*client*/
+  submittedContractusecase,
   clientAuthUsecase,
   browseUsersUsecase,
   jobSubmitUseCase,
-
-
+  browseJobUsecase,
+  browseJobPostsUseCase,
+  browseJobProposalsUsecase,
+  shortListJobProposalsUsecase,
+  unshortListJobProposalsUsecase,
+  archiveJobProposalsUsecase,
+  unarchiveJobProposalsUsecase,
+  declineJobProposalsUsecase,
+  offerLetterUsecase,
+  createContractuseCase,
+  saveAddressUsecase,
+  paymentUsecase,
+  verifypaymentuseCase,
+  browseContractsUseCase,
+  paymentAfterUsecase,
+  getContractUsecase,
+  getuserInfoUsecase,
+  
   /*login*/
   loginUsecase,
   forgotPasswordUseCase,
@@ -39,7 +76,14 @@ import {
   blockUserUseCase,
   unblockUserUseCase,
   blockclientUseCase,
-  unblockclientUseCase
+  unblockclientUseCase,
+
+  // chat
+  createChatuseCase,
+  getChatUsecase,
+  findchatUsecase,
+  getmessageUsecase,
+  messageUsecase
 } from "../libs/usecase/index.js";
 
 const use_case = {
@@ -52,11 +96,51 @@ const use_case = {
   experienceUsecase,
   isUserprofileUseCase,
   getJobPostUsecase,
-
+  browseJobpostUsecase,
+  applynowUsecase,
+  notificationUsecase,
+  markasReaduseCase,
+  userContractUsecase,
+  ContractactionuseCase,
+  acceptedContractuseCase,
+  submitJobUsecase,
+  findWorkUsecase,
+  getclientInfoUsecase,
+  alljobproposalsUsecase,
+  viewjobproposalsUsecase,
+  userinfoUsecase,
+  edituserInfoUsecase,
+  savejobUsecese,
+  savedjobUseCase,
+  unsavejobUsecese,
+  disLikejobUsecase,
+  LikejobUsecase,
+  editproposalUsecase,
+  
   /*client*/
+  submittedContractusecase,
   clientAuthUsecase,
   browseUsersUsecase,
   jobSubmitUseCase,
+  browseJobUsecase,
+  browseJobPostsUseCase,
+  browseJobProposalsUsecase,
+  shortListJobProposalsUsecase,
+  unshortListJobProposalsUsecase,
+  archiveJobProposalsUsecase,
+  unarchiveJobProposalsUsecase,
+  declineJobProposalsUsecase,
+  offerLetterUsecase,
+  createContractuseCase,
+  saveAddressUsecase,
+  paymentUsecase,
+  verifypaymentuseCase,
+  browseContractsUseCase,
+  paymentAfterUsecase,
+  getContractUsecase,
+  getuserInfoUsecase,
+
+
 
   /*login*/
   loginUsecase,
@@ -79,7 +163,14 @@ const use_case = {
   blockUserUseCase,
   unblockUserUseCase,
   blockclientUseCase,
-  unblockclientUseCase
+  unblockclientUseCase,
+
+  // chat
+  createChatuseCase,
+  getChatUsecase,
+  findchatUsecase,
+  getmessageUsecase,
+  messageUsecase
 };
 
 export default { use_case, repositories, config };
