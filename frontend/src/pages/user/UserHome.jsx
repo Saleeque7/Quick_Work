@@ -8,24 +8,16 @@ import {
 import Carousel from "../../components/uic/Carousel";
 import ProfileBar from "../../components/uic/ProfileBar";
 import JobCards from "../../components/uic/JobCards";
-<<<<<<< HEAD// Combined changes from both branches
-
-=======
-
->>>>>>> main// Combined changes from both branches
 
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import UserProfile from "../../components/user/UserProfile";
 import { useUserProfile } from "../../utils/context/ProfileContext";
 import { userAxiosInstance } from "../../utils/api/privateAxios";
-<<<<<<< HEAD// Combined changes from both branches
 
 import { getJobPost } from "../../utils/api/api";
 import { Pagination } from "../../components/user/Pagination";
-=======
 import { getJobPost ,getsavedJobApi } from "../../utils/api/api";
->>>>>>> main// Combined changes from both branches
 
 
 export default function UserHome() {
@@ -33,14 +25,12 @@ export default function UserHome() {
   const user = useSelector((state) => state.persisted.user.user);
   const [activeHeading, setActiveHeading] = useState("Best Matches");
   const [jobs, setJobs] = useState([]);
-<<<<<<< HEAD// Combined changes from both branches
+
 
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-=======
   const [savedJobs, setSavedJobs] = useState([]);
   const [DislikeJobs, setDislikeJobs] = useState([]);
->>>>>>> main// Combined changes from both branches
 
 
   useEffect(() => {
@@ -49,7 +39,6 @@ export default function UserHome() {
     }
   }, [user.isUserProfile]);
 
-<<<<<<< HEAD// Combined changes from both branches
 
   
   useEffect(()=>{
@@ -64,7 +53,6 @@ export default function UserHome() {
     })
     console.log(res.data);
     setJobs(res.data)   
-=======
   useEffect(() => {
    if(activeHeading !== "Saved Jobs" ){
      fetchJobPosts(activeHeading);
@@ -83,7 +71,6 @@ export default function UserHome() {
       setJobs(res.data);
 
       
->>>>>>> main// Combined changes from both branches
 
     } catch (error) {
       console.error("Error fetching job posts:", error);
@@ -224,8 +211,6 @@ export default function UserHome() {
               bg="gray.100"
               p={5}
             >
-<<<<<<< HEAD// Combined changes from both branches
-
               <JobCards jobs={jobs} />
               <Pagination
                 currentPage={currentPage}
@@ -234,7 +219,7 @@ export default function UserHome() {
               />
 =======
               <JobCards jobs={jobs} activeHeading={activeHeading}   savedJobs={savedJobs} setSavedJobs={setSavedJobs} DislikeJobs={DislikeJobs} setDislikeJobs={setDislikeJobs}/>
->>>>>>> main// Combined changes from both branches
+
 
             </Flex>
           </Box>
